@@ -1,35 +1,55 @@
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Formulário WhatsApp</title>
 
-    <!-- Favicon Oficial -->
-    <link rel="icon" type="image/png"
+    <!-- Favicon -->
+    <link rel="icon"
+          type="image/png"
           href="https://www.adventistas.org/pt/wp-content/themes/pa-theme-sedes/assets/imgs/favicon.png">
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
+            margin: 0;
             padding: 20px;
+
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
 
         .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: #ffffff;
+
             width: 100%;
             max-width: 400px;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 4px 6px rgba(0,0,0,0.1);
+
+            height: auto;
         }
 
         h2 {
             margin-top: 0;
+            margin-bottom: 25px;
+
             color: #004b87;
         }
 
@@ -39,28 +59,45 @@
 
         label {
             display: block;
+
             margin-bottom: 5px;
+
             font-weight: bold;
+
             color: #555;
         }
 
         input[type="text"],
-        input[type="tel"] {
+        input[type="tel"],
+        textarea {
+
             width: 100%;
+
             padding: 10px;
+
             border: 1px solid #ccc;
+
             border-radius: 4px;
-            box-sizing: border-box;
+
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+            font-family: Arial, sans-serif;
         }
 
         .checkbox-group {
-            margin: 15px 0;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .checkbox-item {
-            margin-bottom: 8px;
             display: flex;
             align-items: center;
+
+            margin-bottom: 10px;
         }
 
         .checkbox-item input {
@@ -69,42 +106,43 @@
 
         .campo-extra-container {
             display: none;
+
             margin-top: 10px;
             margin-bottom: 15px;
         }
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            height: 80px;
-            resize: none;
-            font-family: Arial, sans-serif;
-        }
-
         .contador-caracteres {
-            font-size: 11px;
-            color: #777;
+
+            margin-top: 4px;
+
             text-align: right;
-            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: #777;
         }
 
         button {
-            display: block;
+
             width: 100%;
+
             padding: 12px;
+
             border: none;
+
             border-radius: 4px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+
             background-color: #004b87;
-            text-align: center;
-            box-sizing: border-box;
-            transition: background 0.3s;
+
+            color: white;
+
             font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s;
         }
 
         button:hover:not(:disabled) {
@@ -112,338 +150,448 @@
         }
 
         button:disabled {
-            background-color: #cccccc !important;
+            background-color: #cccccc;
             cursor: not-allowed;
         }
+
     </style>
 </head>
 
 <body>
 
-<div class="form-container">
-    <h2>Solicitação</h2>
+    <div class="form-container">
 
-    <form id="meuFormulario" autocomplete="off" onsubmit="return false;">
+        <h2>Solicitação</h2>
 
-        <div class="input-group">
-            <label for="nome">Nome:</label>
-            <input type="text"
-                   id="nome"
-                   placeholder="Digite seu nome">
-        </div>
+        <form
+            id="meuFormulario"
+            autocomplete="off"
+            onsubmit="return false;"
+        >
 
-        <div class="input-group">
-            <label for="telefone">Telefone:</label>
-            <input type="tel"
-                   id="telefone"
-                   maxlength="15"
-                   placeholder="(99) 99999-9999">
-        </div>
+            <!-- NOME -->
 
-        <div class="checkbox-group">
-            <label>Escolha uma opção:</label>
+            <div class="input-group">
 
-            <div class="checkbox-item">
-                <input type="checkbox"
-                       name="opcoes"
-                       value="Gostaria de receber uma visita em minha casa."
-                       class="opcao-check">
+                <label for="nome">
+                    Nome:
+                </label>
 
-                <span>Gostaria de receber uma visita em minha casa.</span>
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite seu nome"
+                >
+
             </div>
 
-            <div class="checkbox-item">
-                <input type="checkbox"
-                       name="opcoes"
-                       value="Gostaria de conversar por telefone."
-                       class="opcao-check">
 
-                <span>Gostaria de conversar por telefone.</span>
+            <!-- TELEFONE -->
+
+            <div class="input-group">
+
+                <label for="telefone">
+                    Telefone:
+                </label>
+
+                <input
+                    type="tel"
+                    id="telefone"
+                    maxlength="15"
+                    placeholder="(99) 99999-9999"
+                >
+
             </div>
 
-            <div class="checkbox-item">
-                <input type="checkbox"
-                       id="opcaoTres"
-                       name="opcoes"
-                       value="Gostaria que orassem por:"
-                       class="opcao-check">
 
-                <span>Gostaria que orassem por:</span>
+            <!-- OPÇÕES -->
+
+            <div class="checkbox-group">
+
+                <label>
+                    Escolha uma opção:
+                </label>
+
+                <div class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        name="opcoes"
+                        value="Gostaria de receber uma visita em minha casa."
+                        class="opcao-check"
+                    >
+
+                    <span>
+                        Gostaria de receber uma visita em minha casa.
+                    </span>
+
+                </div>
+
+
+                <div class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        name="opcoes"
+                        value="Gostaria de conversar por telefone."
+                        class="opcao-check"
+                    >
+
+                    <span>
+                        Gostaria de conversar por telefone.
+                    </span>
+
+                </div>
+
+
+                <div class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        id="opcaoTres"
+                        name="opcoes"
+                        value="Gostaria que orassem por:"
+                        class="opcao-check"
+                    >
+
+                    <span>
+                        Gostaria que orassem por:
+                    </span>
+
+                </div>
+
             </div>
-        </div>
 
-        <div id="containerOpcaoTres" class="campo-extra-container">
-            <label for="detalhesOpcaoTres">Motivo da oração:</label>
 
-            <textarea id="detalhesOpcaoTres"
-                      maxlength="140"
-                      placeholder="Digite mais informações aqui... (máx 140 caracteres)"></textarea>
+            <!-- CAMPO EXTRA -->
 
-            <div id="contador" class="contador-caracteres">
-                140 caracteres restantes
+            <div
+                id="containerOpcaoTres"
+                class="campo-extra-container"
+            >
+
+                <label for="detalhesOpcaoTres">
+                    Motivo da oração:
+                </label>
+
+                <textarea
+                    id="detalhesOpcaoTres"
+                    maxlength="140"
+                    placeholder="Digite aqui... (máx 140 caracteres)"
+                ></textarea>
+
+                <div
+                    id="contador"
+                    class="contador-caracteres"
+                >
+                    140 caracteres restantes
+                </div>
+
             </div>
-        </div>
 
-        <button type="button"
+
+            <!-- BOTÃO -->
+
+            <button
+                type="button"
                 id="btnEnviar"
-                disabled>
-            Enviar para o WhatsApp
-        </button>
+                disabled
+            >
+                Enviar para o WhatsApp
+            </button>
 
-    </form>
-</div>
+        </form>
 
-<script>
-
-    // ==========================================
-    // CONFIGURAÇÃO
-    // ==========================================
-
-    const NUMERO_WHATSAPP = "5511971351712";
+    </div>
 
 
-    // ==========================================
-    // ELEMENTOS
-    // ==========================================
+    <script>
 
-    const nomeInput = document.getElementById('nome');
-    const telefoneInput = document.getElementById('telefone');
+        // =====================================
+        // CONFIGURAÇÃO
+        // =====================================
 
-    const checkboxes =
-        document.querySelectorAll('.opcao-check');
-
-    const opcaoTresCheckbox =
-        document.getElementById('opcaoTres');
-
-    const containerOpcaoTres =
-        document.getElementById('containerOpcaoTres');
-
-    const detalhesOpcaoTres =
-        document.getElementById('detalhesOpcaoTres');
-
-    const contadorVisor =
-        document.getElementById('contador');
-
-    const btnEnviar =
-        document.getElementById('btnEnviar');
+        const NUMERO_WHATSAPP =
+            "5511971351712";
 
 
-    // ==========================================
-    // MOSTRAR / ESCONDER CAMPO EXTRA
-    // ==========================================
+        // =====================================
+        // ELEMENTOS
+        // =====================================
 
-    function gerenciarOpcaoTres() {
+        const nomeInput =
+            document.getElementById('nome');
 
-        if (opcaoTresCheckbox.checked) {
+        const telefoneInput =
+            document.getElementById('telefone');
 
-            containerOpcaoTres.style.display = 'block';
+        const checkboxes =
+            document.querySelectorAll('.opcao-check');
 
-            detalhesOpcaoTres.setAttribute(
-                'required',
-                'true'
-            );
+        const opcaoTresCheckbox =
+            document.getElementById('opcaoTres');
 
-        } else {
+        const containerOpcaoTres =
+            document.getElementById('containerOpcaoTres');
 
-            containerOpcaoTres.style.display = 'none';
+        const detalhesOpcaoTres =
+            document.getElementById('detalhesOpcaoTres');
 
-            detalhesOpcaoTres.removeAttribute('required');
+        const contadorVisor =
+            document.getElementById('contador');
 
-            detalhesOpcaoTres.value = '';
-
-            contadorVisor.textContent =
-                '140 caracteres restantes';
-        }
-    }
-
-
-    // ==========================================
-    // CONTADOR DE CARACTERES
-    // ==========================================
-
-    detalhesOpcaoTres.addEventListener(
-        'input',
-        function () {
-
-            const restante =
-                140 - detalhesOpcaoTres.value.length;
-
-            contadorVisor.textContent =
-                restante + ' caracteres restantes';
-
-            validarFormulario();
-        }
-    );
+        const btnEnviar =
+            document.getElementById('btnEnviar');
 
 
-    // ==========================================
-    // MÁSCARA TELEFONE
-    // ==========================================
+        // =====================================
+        // MOSTRAR / ESCONDER CAMPO EXTRA
+        // =====================================
 
-    function aplicarMascaraTelefone(evento) {
+        function gerenciarOpcaoTres() {
 
-        let valor =
-            evento.target.value.replace(/\D/g, "");
+            if (opcaoTresCheckbox.checked) {
 
-        if (valor.length > 0) {
-            valor = "(" + valor;
-        }
+                containerOpcaoTres.style.display =
+                    'block';
 
-        if (valor.length > 3) {
-            valor =
-                valor.slice(0, 3) +
-                ") " +
-                valor.slice(3);
-        }
+                detalhesOpcaoTres.setAttribute(
+                    'required',
+                    'true'
+                );
 
-        if (valor.length > 10) {
-            valor =
-                valor.slice(0, 10) +
-                "-" +
-                valor.slice(10);
-        }
+            } else {
 
-        evento.target.value = valor.slice(0, 15);
+                containerOpcaoTres.style.display =
+                    'none';
 
-        validarFormulario();
-    }
+                detalhesOpcaoTres.removeAttribute(
+                    'required'
+                );
 
+                detalhesOpcaoTres.value = '';
 
-    // ==========================================
-    // VALIDAR FORMULÁRIO
-    // ==========================================
-
-    function validarFormulario() {
-
-        const nomePreenchido =
-            nomeInput.value.trim() !== "";
-
-        const telefoneValido =
-            telefoneInput.value.trim().length >= 14;
-
-        const algumCheckboxMarcado =
-            Array.from(checkboxes)
-                .some(cb => cb.checked);
-
-        let detalheValidado = true;
-
-        if (opcaoTresCheckbox.checked) {
-
-            detalheValidado =
-                detalhesOpcaoTres.value.trim() !== "";
-        }
-
-        btnEnviar.disabled = !(
-            nomePreenchido &&
-            telefoneValido &&
-            algumCheckboxMarcado &&
-            detalheValidado
-        );
-    }
-
-
-    // ==========================================
-    // ENVIAR PARA WHATSAPP
-    // ==========================================
-
-    btnEnviar.addEventListener(
-        'click',
-        function () {
-
-            const opcoesMarcadas =
-                Array.from(checkboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value)
-                    .join(', ');
-
-            let textoMensagem = '';
-
-            textoMensagem += '*Novo Cadastro*\\n\\n';
-
-            textoMensagem +=
-                '*Nome:* ' +
-                nomeInput.value.trim() +
-                '\\n';
-
-            textoMensagem +=
-                '*Telefone:* ' +
-                telefoneInput.value.trim() +
-                '\\n';
-
-            textoMensagem +=
-                '*Solicitação:* ' +
-                opcoesMarcadas;
-
-            if (
-                opcaoTresCheckbox.checked &&
-                detalhesOpcaoTres.value.trim() !== ""
-            ) {
-
-                textoMensagem +=
-                    '\\n*Motivo da oração:* ' +
-                    detalhesOpcaoTres.value.trim();
+                contadorVisor.textContent =
+                    '140 caracteres restantes';
             }
-
-            const textoCodificado =
-                encodeURIComponent(textoMensagem);
-
-            const linkWhatsapp =
-                "https://wa.me/" +
-                NUMERO_WHATSAPP +
-                "?text=" +
-                textoCodificado;
-
-            // Abre corretamente no celular e desktop
-            window.open(
-                linkWhatsapp,
-                "_blank"
-            );
         }
-    );
 
 
-    // ==========================================
-    // EVENTOS
-    // ==========================================
+        // =====================================
+        // CONTADOR DE CARACTERES
+        // =====================================
 
-    nomeInput.addEventListener(
-        'input',
-        validarFormulario
-    );
-
-    telefoneInput.addEventListener(
-        'input',
-        aplicarMascaraTelefone
-    );
-
-    checkboxes.forEach(cb => {
-
-        cb.addEventListener(
-            'change',
+        detalhesOpcaoTres.addEventListener(
+            'input',
             function () {
 
-                // Permite apenas uma opção marcada
-                if (this.checked) {
+                const restante =
+                    140 - detalhesOpcaoTres.value.length;
 
-                    checkboxes.forEach(
-                        outraCaixa => {
-
-                            if (outraCaixa !== this) {
-                                outraCaixa.checked = false;
-                            }
-                        }
-                    );
-                }
-
-                gerenciarOpcaoTres();
+                contadorVisor.textContent =
+                    restante +
+                    ' caracteres restantes';
 
                 validarFormulario();
             }
         );
-    });
 
-</script>
+
+        // =====================================
+        // MÁSCARA TELEFONE
+        // =====================================
+
+        function aplicarMascaraTelefone(evento) {
+
+            let valor =
+                evento.target.value.replace(/\D/g, "");
+
+            if (valor.length > 0) {
+                valor = "(" + valor;
+            }
+
+            if (valor.length > 3) {
+
+                valor =
+                    valor.slice(0, 3) +
+                    ") " +
+                    valor.slice(3);
+            }
+
+            if (valor.length > 10) {
+
+                valor =
+                    valor.slice(0, 10) +
+                    "-" +
+                    valor.slice(10);
+            }
+
+            evento.target.value =
+                valor.slice(0, 15);
+
+            validarFormulario();
+        }
+
+
+        // =====================================
+        // VALIDAR FORMULÁRIO
+        // =====================================
+
+        function validarFormulario() {
+
+            const nomePreenchido =
+                nomeInput.value.trim() !== "";
+
+            const telefoneValido =
+                telefoneInput.value.trim().length >= 14;
+
+            const algumCheckboxMarcado =
+                Array.from(checkboxes)
+                    .some(cb => cb.checked);
+
+            let detalheValidado = true;
+
+            if (opcaoTresCheckbox.checked) {
+
+                detalheValidado =
+                    detalhesOpcaoTres.value.trim() !== "";
+            }
+
+            btnEnviar.disabled = !(
+
+                nomePreenchido &&
+                telefoneValido &&
+                algumCheckboxMarcado &&
+                detalheValidado
+
+            );
+        }
+
+
+        // =====================================
+        // ENVIAR PARA WHATSAPP
+        // =====================================
+
+        btnEnviar.addEventListener(
+            'click',
+            function () {
+
+                const opcoesMarcadas =
+
+                    Array.from(checkboxes)
+
+                        .filter(cb => cb.checked)
+
+                        .map(cb => cb.value)
+
+                        .join(', ');
+
+
+                let textoMensagem = '';
+
+                textoMensagem +=
+                    '*Novo Cadastro*\n\n';
+
+                textoMensagem +=
+                    '*Nome:* ' +
+                    nomeInput.value.trim() +
+                    '\n';
+
+                textoMensagem +=
+                    '*Telefone:* ' +
+                    telefoneInput.value.trim() +
+                    '\n';
+
+                textoMensagem +=
+                    '*Solicitação:* ' +
+                    opcoesMarcadas;
+
+
+                if (
+
+                    opcaoTresCheckbox.checked &&
+                    detalhesOpcaoTres.value.trim() !== ""
+
+                ) {
+
+                    textoMensagem +=
+                        '\n*Motivo da oração:* ' +
+                        detalhesOpcaoTres.value.trim();
+                }
+
+
+                const textoCodificado =
+                    encodeURIComponent(textoMensagem);
+
+
+                const linkWhatsapp =
+
+                    "https://wa.me/" +
+
+                    NUMERO_WHATSAPP +
+
+                    "?text=" +
+
+                    textoCodificado;
+
+
+                window.open(
+                    linkWhatsapp,
+                    "_blank"
+                );
+            }
+        );
+
+
+        // =====================================
+        // EVENTOS
+        // =====================================
+
+        nomeInput.addEventListener(
+            'input',
+            validarFormulario
+        );
+
+        telefoneInput.addEventListener(
+            'input',
+            aplicarMascaraTelefone
+        );
+
+
+        checkboxes.forEach(cb => {
+
+            cb.addEventListener(
+                'change',
+                function () {
+
+                    // Apenas uma opção por vez
+
+                    if (this.checked) {
+
+                        checkboxes.forEach(
+                            outraCaixa => {
+
+                                if (
+                                    outraCaixa !== this
+                                ) {
+
+                                    outraCaixa.checked =
+                                        false;
+                                }
+                            }
+                        );
+                    }
+
+                    gerenciarOpcaoTres();
+
+                    validarFormulario();
+                }
+            );
+        });
+
+    </script>
 
 </body>
+
 </html>
 ```
