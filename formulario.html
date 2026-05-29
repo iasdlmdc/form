@@ -11,7 +11,7 @@
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
         .form-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { margin-top: 0; color: #333; }
+        h2 { margin-top: 0; color: #004b87; } /* Azul oficial no título */
         .input-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
         input[type="text"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
@@ -23,6 +23,7 @@
         textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; height: 80px; resize: none; font-family: Arial, sans-serif; }
         .contador-caracteres { font-size: 11px; color: #777; text-align: right; margin-top: 2px; }
 
+        /* Estilo do botão modificado para o azul oficial da logo */
         .btn-enviar {
             display: block;
             width: 100%;
@@ -32,11 +33,14 @@
             color: white;
             font-weight: bold;
             cursor: pointer;
-            background-color: #25D366;
+            background-color: #004b87; 
             text-align: center;
             text-decoration: none;
             box-sizing: border-box;
             transition: background 0.3s;
+        }
+        .btn-enviar:hover {
+            background-color: #003663;
         }
         .btn-enviar.disabled {
             background-color: #cccccc !important;
@@ -79,7 +83,8 @@
             <div id="contador" class="contador-caracteres">140 caracteres restantes</div>
         </div>
 
-        <a href="#" id="btnEnviar" class="btn-enviar disabled" target="_blank">Enviar para o WhatsApp</a>
+        <!-- Removido o target="_blank" para evitar o bloqueio de pop-ups do Edge -->
+        <a href="#" id="btnEnviar" class="btn-enviar disabled">Enviar para o WhatsApp</a>
     </form>
 </div>
 
@@ -132,7 +137,7 @@
             detalheValidado = detalhesOpcaoTres.value.trim() !== "";
         }
 
-        if (nomePreenchido && telefoneValido && algumCheckboxMarcado && detalheValidado) {
+        if (nomePreenchido && telefoneValido && someCheckboxMarcado = algumCheckboxMarcado && detalheValidado) {
             const opcoesMarcadas = Array.from(checkboxes)
                 .filter(cb => cb.checked)
                 .map(cb => cb.value)
