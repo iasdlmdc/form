@@ -6,7 +6,7 @@
     <title>Formulário WhatsApp</title>
     
     <!-- Favicon Oficial da Igreja Adventista -->
-    <link rel="icon" type="image/png" href="https://www.adventistas.org/pt/wp-content/themes/pa-theme-sedes/assets/imgs/favicon.png">
+    <link rel="icon" type="image/png" href="https://adventistas.org">
 
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
@@ -137,7 +137,8 @@
             detalheValidado = detalhesOpcaoTres.value.trim() !== "";
         }
 
-        if (nomePreenchido && telefoneValido && someCheckboxMarcado = algumCheckboxMarcado && detalheValidado) {
+        // CORREÇÃO EFETUADA NA LINHA ABAIXO
+        if (nomePreenchido && telefoneValido && algumCheckboxMarcado && detalheValidado) {
             const opcoesMarcadas = Array.from(checkboxes)
                 .filter(cb => cb.checked)
                 .map(cb => cb.value)
