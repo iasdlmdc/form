@@ -20,7 +20,9 @@
         textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; height: 80px; resize: none; font-family: Arial, sans-serif; }
         .contador-caracteres { font-size: 11px; color: #777; text-align: right; margin-top: 2px; }
 
-        button {
+        /* Transformamos o link em um botão visual perfeito */
+        .btn-enviar {
+            display: block;
             width: 100%;
             padding: 12px;
             border: none;
@@ -29,11 +31,15 @@
             font-weight: bold;
             cursor: pointer;
             background-color: #25D366;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
             transition: background 0.3s;
         }
-        button:disabled {
-            background-color: #cccccc;
+        .btn-enviar.disabled {
+            background-color: #cccccc !important;
             cursor: not-allowed;
+            pointer-events: none; /* Impede qualquer clique ou ação se estiver desativado */
         }
     </style>
 </head>
@@ -72,7 +78,8 @@
             <div id="contador" class="contador-caracteres">140 caracteres restantes</div>
         </div>
 
-        <button type="button" id="btnEnviar" onclick="enviarMensagem()" disabled>Enviar para o WhatsApp</button>
+        <!-- MUDANÇA CRÍTICA: Trocado de <button> para um link nativo <a> blindado -->
+        <a href="#" id="btnEnviar" class="btn-enviar disabled" target="_blank">Enviar para o WhatsApp</a>
     </form>
 </div>
 
@@ -96,7 +103,7 @@
         } else {
             containerOpcaoTres.style.display = 'none';
             detalhesOpcaoTres.removeAttribute('required');
-            detalhesOpcaoTres.value = ''; // Apaga o texto digitado ao ocultar
+            detalhesOpcaoTres.value = ''; // Limpa o texto digitado ao ocultar
             contadorVisor.textContent = '140 caracteres restantes';
         }
     }
@@ -105,7 +112,7 @@
     detalhesOpcaoTres.addEventListener('input', function() {
         const quantidadeRestante = 140 - detalhesOpcaoTres.value.length;
         contadorVisor.textContent = quantidadeRestante + ' caracteres restantes';
-        validarFormulario();
+        atualizarLinkMensagem();
     });
 
     function aplicarMascaraTelefone(evento) {
@@ -114,35 +121,56 @@
         if (valor.length > 3) valor = valor.slice(0, 3) + ") " + valor.slice(3);
         if (valor.length > 10) valor = valor.slice(0, 10) + "-" + valor.slice(10);
         evento.target.value = valor.slice(0, 15);
-        validarFormulario();
+        atualizarLinkMensagem();
     }
 
-    function validarFormulario() {
+    // Altera dinamicamente o link do botão e valida o estado visual
+    function atualizarLinkMensagem() {
         const nomePreenchido = nomeInput.value.trim() !== "";
         const telefoneValido = telefoneInput.value.trim().length >= 14;
         const algumCheckboxMarcado = Array.from(checkboxes).some(cb => cb.checked);
 
-        // Regra se a Opção C estiver marcada: textarea não pode estar vazio
         let detalheValidado = true;
         if (opcaoTresCheckbox.checked) {
             detalheValidado = detalhesOpcaoTres.value.trim() !== "";
         }
 
+        // Se o formulário estiver 100% preenchido corretamente
         if (nomePreenchido && telefoneValido && algumCheckboxMarcado && detalheValidado) {
-            btnEnviar.disabled = false;
+            
+            const opcoesMarcadas = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value)
+                .join(', ');
+
+            let textoMensagem = `*Novo Cadastro*\n\n`;
+            textoMensagem += `*Nome:* ${nomeInput.value.trim()}\n`;
+            textoMensagem += `*Telefone:* ${telefoneInput.value.trim()}\n`;
+            textoMensagem += `*Opção selecionada:* ${opcoesMarcadas}`;
+
+            if (opcaoTresCheckbox.checked && detalhesOpcaoTres.value.trim() !== "") {
+                textoMensagem += `\n*Motivo da oração:* ${detalhesOpcaoTres.value.trim()}`;
+            }
+
+            const textoCodificado = encodeURIComponent(textoMensagem);
+            
+            // Injeta a URL correta diretamente no atributo nativo href do HTML
+            btnEnviar.href = "https://whatsapp.com" + NUMERO_WHATSAPP + "&text=" + textoCodificado;
+            btnEnviar.classList.remove('disabled');
         } else {
-            btnEnviar.disabled = true;
+            // Se estiver incompleto, desativa o link e reseta o href
+            btnEnviar.href = "#";
+            btnEnviar.classList.add('disabled');
         }
     }
 
-    // Adiciona ouvintes de eventos para inputs gerais
-    nomeInput.addEventListener('input', validarFormulario);
+    // Ouvintes de eventos para inputs gerais
+    nomeInput.addEventListener('input', atualizarLinkMensagem);
     telefoneInput.addEventListener('input', aplicarMascaraTelefone);
 
-    // Força seleção única em todas as caixas e gerencia dependências
+    // Força seleção única em todas as caixas e atualiza o estado
     checkboxes.forEach(cb => {
         cb.addEventListener('change', function() {
-            // Se esta caixa acabou de ser marcada, desmarca todas as outras
             if (this.checked) {
                 checkboxes.forEach(outraCaixa => {
                     if (outraCaixa !== this) {
@@ -151,35 +179,10 @@
                 });
             }
             
-            // Atualiza a visibilidade da terceira opção e valida todo o formulário
             gerenciarOpçaoTres();
-            validarFormulario();
+            atualizarLinkMensagem();
         });
     });
-
-    function enviarMensagem() {
-        const opcoesMarcadas = Array.from(checkboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value)
-            .join(', ');
-
-        let textoMensagem = `*Novo Cadastro*\n\n`;
-        textoMensagem += `*Nome:* ${nomeInput.value}\n`;
-        textoMensagem += `*Telefone:* ${telefoneInput.value}\n`;
-        textoMensagem += `*Opção selecionada:* ${opcoesMarcadas}`;
-
-        // Adiciona detalhes adicionais se a Opção C estiver marcada
-        if (opcaoTresCheckbox.checked && detalhesOpcaoTres.value.trim() !== "") {
-            textoMensagem += `\n*Motivo da oração:* ${detalhesOpcaoTres.value}`;
-        }
-
-        const textoCodificado = encodeURIComponent(textoMensagem);
-        
-        // Link estruturado corretamente para a API do WhatsApp
-        const urlWhatsApp = "https://whatsapp.com" + NUMERO_WHATSAPP + "&text=" + textoCodificado;
-
-        window.open(urlWhatsApp, '_blank');
-    }
 </script>
 
 </body>
