@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário WhatsApp</title>
     
-    <!-- FAVICON ADICIONADO -->
-    <link rel="icon" type="image/png" href="https://www.adventistas.org/pt/wp-content/themes/pa-theme-sedes/assets/imgs/favicon.png">
+    <!-- Favicon Oficial -->
+    <link rel="icon" type="image/png" href="https://adventistas.org">
 
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
@@ -24,7 +24,7 @@
         textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; height: 80px; resize: none; font-family: Arial, sans-serif; }
         .contador-caracteres { font-size: 11px; color: #777; text-align: right; margin-top: 2px; }
 
-        /* Estilo do link em formato de botão puro */
+        /* Estilo do botão de envio */
         .btn-enviar {
             display: block;
             width: 100%;
@@ -82,7 +82,7 @@
             <div id="contador" class="contador-caracteres">140 caracteres restantes</div>
         </div>
 
-        <!-- Botão baseado em Link Nativo HTML -->
+        <!-- Botão baseado em Link Nativo -->
         <a href="#" id="btnEnviar" class="btn-enviar disabled" target="_blank">Enviar para o WhatsApp</a>
     </form>
 </div>
@@ -152,7 +152,6 @@
             }
 
             const textoCodificado = encodeURIComponent(textoMensagem);
-            
             btnEnviar.href = "https://whatsapp.com" + NUMERO_WHATSAPP + "&text=" + textoCodificado;
             btnEnviar.classList.remove('disabled');
         } else {
@@ -160,6 +159,14 @@
             btnEnviar.classList.add('disabled');
         }
     }
+
+    // Camada extra de segurança anti-cache para navegadores travados
+    btnEnviar.addEventListener('click', function(e) {
+        if (btnEnviar.classList.contains('disabled') || btnEnviar.href.includes('whatsapp.com5511')) {
+            e.preventDefault();
+            atualizarLinkMensagem();
+        }
+    });
 
     nomeInput.addEventListener('input', atualizarLinkMensagem);
     telefoneInput.addEventListener('input', aplicarMascaraTelefone);
