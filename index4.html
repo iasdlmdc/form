@@ -96,7 +96,7 @@
         } else {
             containerOpcaoTres.style.display = 'none';
             detalhesOpcaoTres.removeAttribute('required');
-            detalhesOpcaoTres.value = ''; // CORREÇÃO: Apaga o texto digitado ao ocultar
+            detalhesOpcaoTres.value = ''; // Apaga o texto digitado ao ocultar
             contadorVisor.textContent = '140 caracteres restantes';
         }
     }
@@ -139,7 +139,7 @@
     nomeInput.addEventListener('input', validarFormulario);
     telefoneInput.addEventListener('input', aplicarMascaraTelefone);
 
-    // CORREÇÃO: Força seleção única em todas as caixas e gerencia dependências
+    // Força seleção única em todas as caixas e gerencia dependências
     checkboxes.forEach(cb => {
         cb.addEventListener('change', function() {
             // Se esta caixa acabou de ser marcada, desmarca todas as outras
@@ -166,7 +166,7 @@
         let textoMensagem = `*Novo Cadastro*\n\n`;
         textoMensagem += `*Nome:* ${nomeInput.value}\n`;
         textoMensagem += `*Telefone:* ${telefoneInput.value}\n`;
-        textoMensagem += `*Opção selecionada:* ${opcoesMarcadas}`; // Alterado para o singular 'Opção'
+        textoMensagem += `*Opção selecionada:* ${opcoesMarcadas}`;
 
         // Adiciona detalhes adicionais se a Opção C estiver marcada
         if (opcaoTresCheckbox.checked && detalhesOpcaoTres.value.trim() !== "") {
@@ -175,10 +175,10 @@
 
         const textoCodificado = encodeURIComponent(textoMensagem);
         
-        // CORREÇÃO DA URL: Ajustado de "https://whatsapp.com" para a API correta com "send?phone="
+        // Link estruturado corretamente para a API do WhatsApp
         const urlWhatsApp = "https://whatsapp.com" + NUMERO_WHATSAPP + "&text=" + textoCodificado;
 
-        window.open(urlWhatsApp, '_blank'); // Abre em nova aba para não fechar seu site
+        window.open(urlWhatsApp, '_blank');
     }
 </script>
 
